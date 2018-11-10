@@ -1,9 +1,7 @@
 import datetime
-import urllib
 import requests
 import json
-import os
-from .fileSearcher import search
+import re
 
 # formats unixtime to (Hour:Minute AM/PM)
 def time_converter(time):
@@ -11,9 +9,30 @@ def time_converter(time):
 	return formatted_time
 
 # gathers raw data from server (json)
-def data_fetch(city_id, user_api):
+def data_fetch(city_str, user_api):
+	if ',' in city_str:
+		city, country = city_str.split(',')
+		country_list = re.split("(%20+)", country)
+		for i in range(len(country_list)):
+			if country_list[i].isspace():
+				country_list[i] = "+"
+		country = ''.join(country_list)
+
+		city_list = re.split("(%20+)", city)
+		for i in range(len(city_list)):
+			if city_list[i].isspace():
+				city_list[i] = "+"
+		city = ''.join(city_list) + ',' + country
+
+	else:
+		city_list = re.split("(%20+)", city_str)
+		for i in range(len(city_list)):
+			if city_list[i].isspace():
+				city_list[i] = "+"
+		city = ''.join(city_list)
+
 	results = requests.get("http://api.openweathermap.org/data/2.5/weather",
-							params={'id': city_id, 'appid': user_api})
+							params={'q': city, 'appid': user_api})
 	return results
 
 # formats direction at which wind is travelling
@@ -30,7 +49,7 @@ def degree_formatter(degrees):
 	return output
 
 # creates dictionary that organizes important information from raw data  
-def data_organizer(response, data):
+def data_organizer(response):
 	formatted_response = json.loads(response.text)
 
 	name = formatted_response['name']
@@ -52,13 +71,8 @@ def data_organizer(response, data):
 		"time" : time_converter(formatted_response['dt'])
 	}
 
-	data[formatted_response['id']] = temp
-
-	return data
+	return temp
 
 def main(city):
-	city_list = search(city)	# methods in fileSearcher module determine which city to find weather of
 	user_api = "70541da258ef9821825fb78ffd153f7a"	# insert api key from OpenWeatherMap here
-
-	data = data_fetch(city_list[1][1], user_api)
-	return json.loads(data.text)
+	return data_organizer(data_fetch(city, user_api))
