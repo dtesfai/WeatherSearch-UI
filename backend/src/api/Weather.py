@@ -59,8 +59,6 @@ def data_organizer(response, data):
 def main(city):
 	city_list = search(city)	# methods in fileSearcher module determine which city to find weather of
 	user_api = "70541da258ef9821825fb78ffd153f7a"	# insert api key from OpenWeatherMap here
-	formatted_data = {}
 
-	for city_id in city_list:
-		data = data_organizer(data_fetch(city_id[2], user_api), formatted_data)
-	return formatted_data
+	data = data_fetch(city_list[1][1], user_api)
+	return json.loads(data.text)

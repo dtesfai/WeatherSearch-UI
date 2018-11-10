@@ -4,5 +4,5 @@ def search(city):
 	possible_cities = []
 	lst = searchJSON()
 
-	possible_cities = [x for x in lst if city in x]
+	possible_cities = [x for x in lst if city == x[0].lower()]
 	return possible_cities

@@ -1,7 +1,5 @@
-FROM httpd:2.4.33-alpine
-RUN apk update; \
-    apk upgrade;
+FROM nginx
 
-COPY httpd.conf /usr/local/apache2/conf/demo.apache.conf
-RUN echo "Include /usr/local/apache2/conf/demo.apache.conf" \
-    >> /usr/local/apache2/conf/httpd.conf
+COPY nginx.conf /etc/nginx/nginx.conf
+
+CMD ["nginx", "-g", "daemon off;"]
