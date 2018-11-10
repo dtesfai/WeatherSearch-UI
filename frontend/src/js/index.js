@@ -7,7 +7,12 @@ function getJson(callback){
     })
 }
 
-results = {"Snow": "It's snowing!", "Rain": "It's raining.", "Clouds": "It's cloudy."}
+function formatTemp(val){
+    return val + '\u00b0C';
+}
+
+results = {"Snow": "It's snowing!", "Rain": "It's raining.", "Clouds": "It's cloudy.",
+ "Drizzle": "It's kinda raining.", "Clear": "Clear skies!"}
 
 $(document).ready(function () {
     // $("#results").hide();
@@ -17,10 +22,11 @@ $(document).ready(function () {
                 getJson(function(response){
                     console.log(response);
                     $("#search").hide();
-                    $("#name").append(response['name'] + " " + response['country']);
-                    $("#sunrise").append(response['sunrise']);
-                    $("#sunset").append(response['sunset']);
+                    $("#name").append(response['name']);
                     $("#conditions").append(results[response['condit']]);
+                    $("#temperature").append(formatTemp(response['temp']) + ' (' +
+                     formatTemp(response['temp_min']) + '-' + formatTemp(response['temp_max']) + '),');
+                    $("#wind").append(response['wind_speed'] + 'm/s ' + response['wind_deg'] + '.');
                     $("#results").show();
                 })
         	}
