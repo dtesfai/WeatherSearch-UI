@@ -8,23 +8,47 @@
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/index.js"></script>
-    <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body>
     <section class="hero is-medium">
         <div class="hero-body">
-            <div id='search' class="container has-text-centered">
-                <h1 class="title">
-                WeatherSearch
-                </h1>
-                <input class="input is-large" id="city" type="text" placeholder="Enter City">
+            <div id='search' class="container">
+                <div class="display has-text-centered">
+                    <h1 class="title">
+                    WeatherSearch
+                    </h1>
+                    <input class="input is-large" id="city" type="text" placeholder="Enter City">
+                </div>
+                <div class="instructions has-text-centered">
+                    <button class="button is-primary is-large modal-button" data-target="modal" aria-haspopup="true">Instructions</button>
+                </div>
+                <div class="modal">
+                    <div class="modal-background"></div>
+                    <div class="modal-content">
+                        <div class="box">
+                            <div class="field">
+                                <h1 class="title">Instructions:</h1>
+                            </div>
+
+                            <div class="field">
+                                <div class="content">
+                                    <ol type="1">
+                                        <li>Enter city name into text field (Add a country code if desired)</li>
+                                        <li>Press enter key</li>
+                                        <li>Weather data is displayed</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="modal-close is-large" aria-label="close"></button>
+                </div>
             </div>
             <div id='results' class="container is-centered" hidden>
                 <h1 class="title is-1" id="name">Report for: </h1>
-<!--                 <h1 class="title is-1" id="sunrise">Sunrise: </h1>
-                <h1 class="title is-1" id="sunset">Sunset: </h1> -->
                 <h1 class="title is-1" id="conditions"></h1>
                 <h1 class="title is-1" id="temperature">It's currently </h1>
                 <h1 class="title is-1" id="wind">with winds of </h1>
