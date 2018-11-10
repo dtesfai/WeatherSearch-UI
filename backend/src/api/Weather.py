@@ -32,7 +32,7 @@ def data_fetch(city_str, user_api):
 		city = ''.join(city_list)
 
 	results = requests.get("http://api.openweathermap.org/data/2.5/weather",
-							params={'q': city, 'appid': user_api})
+							params={'q': city, 'units': 'metric', 'appid': user_api})
 	return results
 
 # formats direction at which wind is travelling
