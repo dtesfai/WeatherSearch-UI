@@ -74,5 +74,5 @@ def data_organizer(response):
 	return temp
 
 def main(city):
-	user_api = "70541da258ef9821825fb78ffd153f7a"	# insert api key from OpenWeatherMap here
+	user_api = ""	# insert api key from OpenWeatherMap here
 	return data_organizer(data_fetch(city, user_api))
