@@ -37,7 +37,7 @@ $(document).ready(function () {
         $(".modal").addClass('is-active');
     });
 
-    $(".modal-close").click(function() {
+    $(".modal-close, .modal-background").click(function() {
         $(".modal").removeClass('is-active');
     });
 })
