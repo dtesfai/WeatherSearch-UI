@@ -20,12 +20,11 @@ $(document).ready(function () {
         function (e) {
         	if (e.keyCode == 13){
                 getJson(function(response){
-                    console.log(response);
                     $("#search").hide();
                     $("#name").append(response['name']);
                     $("#conditions").append(results[response['condit']]);
-                    $("#temperature").append(formatTemp(response['temp']) + ' (' +
-                     formatTemp(response['temp_min']) + '-' + formatTemp(response['temp_max']) + '),');
+                    $("#temperature").append(formatTemp(response['temp']) + ' (High: ' +
+                     formatTemp(response['temp_max']) + ' - Low: ' + formatTemp(response['temp_min']) + '),');
                     $("#wind").append(response['wind_speed'] + 'm/s ' + response['wind_deg'] + '.');
                     $("#results").show();
                 })
