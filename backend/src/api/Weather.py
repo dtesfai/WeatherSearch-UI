@@ -37,15 +37,15 @@ def data_fetch(city_str, user_api):
 
 # formats direction at which wind is travelling
 def degree_formatter(degrees):
-	unit_symbol = '\u00b0'
-	axis = {0:'N', 90:'E', 180:'S', 270:'W'}
+	# unit_symbol = '\u00b0'
+	axis = {0:'north', 90:'east', 180:'south', 270:'west'}
 	if (degrees in axis):
-		output = '[{}]'.format(axis[degrees])
+		output = 'headed {}'.format(axis[degrees])
 	else:
-		v_diff = 'S' if (180 - degrees) < degrees else 'N'
-		h_diff = 'E' if (90 - degrees) < (270 - degrees) else 'W'
-		degrees = min(abs(degrees - 90), abs(90 - degrees), abs(degrees - 180), abs(180 - degrees), abs(degrees - 270), abs(270 - degrees))
-		output = '[{} {}{} {}]'.format(v_diff, round(degrees, 2), unit_symbol, h_diff)
+		v_diff = 'south' if (180 - degrees) < degrees else 'north'
+		h_diff = 'east' if (90 - degrees) < (270 - degrees) else 'west'
+		# degrees = min(abs(degrees - 90), abs(90 - degrees), abs(degrees - 180), abs(180 - degrees), abs(degrees - 270), abs(270 - degrees))
+		output = 'headed {}{}'.format(v_diff, h_diff)
 	return output
 
 # creates dictionary that organizes important information from raw data  
@@ -74,5 +74,5 @@ def data_organizer(response):
 	return temp
 
 def main(city):
-	user_api = ""	# insert api key from OpenWeatherMap here
+	user_api = "70541da258ef9821825fb78ffd153f7a"	# insert api key from OpenWeatherMap here
 	return data_organizer(data_fetch(city, user_api))
